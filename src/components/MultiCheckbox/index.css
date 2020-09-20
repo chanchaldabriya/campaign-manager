@@ -1,0 +1,19 @@
+.MultiCheckbox-subsection-title {
+    color: #aaa;
+}
+
+.MultiCheckbox-title {
+    text-transform: uppercase;
+}
+
+.leftTitle {
+    text-align: left;
+    padding: 10px;
+    margin: 0;
+}
+
+.MultiCheckbox-subsection {
+    display: flex;
+    /* justify-content: space-around; */
+    flex-wrap: wrap;
+}
