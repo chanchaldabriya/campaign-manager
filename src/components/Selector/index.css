@@ -1,0 +1,6 @@
+.Selector {
+    display: flex;
+    justify-content: flex-start;
+    padding: 1%;
+    width: 50%;
+}
