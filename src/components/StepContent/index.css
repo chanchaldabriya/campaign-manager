@@ -1,0 +1,23 @@
+.StepContent {
+    display: none;
+}
+
+.StepContent.active {
+    display: block;
+    margin: auto;
+    padding: 20px;
+    background-color: white;
+}
+
+.StepContent-info {
+    margin-left: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.StepContent-info-panel {
+    text-align: start;
+    display: flex;
+    align-items: center;
+    padding: 20px 10px;
+}

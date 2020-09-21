@@ -1,0 +1,52 @@
+.Stepper-Step-title {
+    text-transform: uppercase;
+    color: #ccc;
+    margin: 0;
+    padding: 10px;
+}
+
+.Stepper-Step-title.active {
+    color: black;
+    border-bottom: 5px solid #999;
+}   
+
+.Stepper-steps {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 10px 0 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+.Stepper-nav-btns {
+    padding: 40px 0 20px;
+    background-color: white;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Stepper-btn {
+    padding: 10px;
+    border: 1px solid #aaa;
+    background-color: transparent;
+    border-radius: 5px;
+    text-transform: uppercase;
+    margin: 0 10px;
+    width: 150px;
+    font-size: 0.8rem;
+    color: #aaa;
+    font-weight: bold;
+}
+
+.prevBtn {
+    margin-right: auto;
+}
+
+.prevBtn::before {
+    content: '<';
+    margin-right: 20px;
+}
+
+.nextBtn::after {
+    content: '>';
+    margin-left: 20px;
+}
