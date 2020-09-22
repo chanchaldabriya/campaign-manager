@@ -3,6 +3,7 @@
     color: #ccc;
     margin: 0;
     padding: 10px;
+    font-size: 1rem;
 }
 
 .Stepper-Step-title.active {

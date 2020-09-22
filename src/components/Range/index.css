@@ -1,0 +1,27 @@
+.Range {
+    display: flex;
+    text-align: start;
+    padding: 20px;
+}
+
+.Range-item {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+    justify-content: space-between;
+}
+
+.Range-label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.Range-label.uppercase {
+    text-transform: uppercase;
+}
+
+.Range-item > input {
+    font-size: 1.1rem;
+    padding: 10px;
+}

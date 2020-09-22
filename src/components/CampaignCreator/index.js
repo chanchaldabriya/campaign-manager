@@ -1,21 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.css";
 import MultiCheckbox from "../MultiCheckbox";
 import Selector from "../Selector";
 import Stepper from "../Stepper";
 import StepContent from "../StepContent";
+import Range from "../Range";
 
 export default function CampaignCreator() {
+  /* Campaign data */
+  const [campaignData, setCampaignData] = useState({
+    name: "",
+    type: "",
+    channelTypes: {},
+    trackingOptions: {},
+  });
+
+  const editCampaign = (prop, value) =>
+    setCampaignData({
+      ...campaignData,
+      [prop]:
+        typeof value === "object" ? { ...campaignData[prop], ...value } : value,
+    });
+
   return (
     <div className="CampaignCreator">
       <div className="CampaignCreator-name">
         <label className="CampaignCreator-name-label">Campaign Name</label>
-        <input className="CampaignCreator-input"/>
+        <input
+          className="CampaignCreator-input"
+          placeholder="Name your Campaign"
+          value={campaignData["name"]}
+          onChange={(e) => editCampaign("name", e.target.value)}
+        />
       </div>
 
       <Stepper steps={["Select Channel", "Flight", "Budget"]}>
         <StepContent info="Select the channel of your campaign">
-          <Selector />
+          <Selector
+            activeItem={campaignData["type"]}
+            setActiveItem={(activeItem) => editCampaign("type", activeItem)}
+          />
 
           <MultiCheckbox
             title="Type(s) of channel"
@@ -31,18 +55,38 @@ export default function CampaignCreator() {
                 "Landing Page",
               ],
             }}
+            selected={campaignData["channelTypes"]}
+            setSelected={(selectedItems, key) =>
+              editCampaign("channelTypes", {
+                [key]: selectedItems,
+              })
+            }
           />
 
           <MultiCheckbox
             title="Tracking Options"
-            items={{ "Attribution Type": ["Visits", "Transactions"] }}
+            items={{
+              "Attribution Type": ["Visits", "Transactions"],
+              "Payment Type": [
+                "UPI",
+                "Credit/Debit Card into the bank",
+                "Internet Banking",
+              ],
+            }}
+            selected={campaignData["trackingOptions"]}
+            setSelected={(selectedItems, key) => {
+              debugger;
+              editCampaign("trackingOptions", {
+                [key]: selectedItems,
+              });
+            }}
           />
         </StepContent>
         <StepContent info="Select when the campaign start and end">
-          <div>Second content</div>
+          <Range type="date" capitalizeLabel />
         </StepContent>
         <StepContent info="How much is your campaign budget?">
-          <div>Third content</div>
+          <Range startLabel="Total Budget" endLabel="Total Impressions" />
         </StepContent>
       </Stepper>
     </div>

@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "./index.css";
 import SelectorItem from "../SelectorItem";
 
-export default () => {
-  const [activeItem, setActiveItem] = useState("");
-
+export default ({activeItem, setActiveItem}) => {
   const channelTypes = [
     {
       name: "Digital",

@@ -8,7 +8,7 @@
 }
 
 .CampaignCreator-name {
-  padding: 10px 30px;
+  padding: 20px 30px;
   text-align: start;
   width: 30%;
   display: flex;
@@ -30,4 +30,8 @@
   margin-bottom: 10px;
   font-size: 1.8rem;
   font-weight: bold;
+}
+
+.CampaignCreator-input::placeholder {
+  font-size: 1rem;
 }
