@@ -19,12 +19,54 @@ export default function CampaignCreator() {
     impressions: 0,
   });
 
+  /* Current active Step screen state */
+  const [activeStep, setActiveStep] = useState(1);
+
   const editCampaign = (prop, value) =>
     setCampaignData({
       ...campaignData,
       [prop]:
         typeof value === "object" ? { ...campaignData[prop], ...value } : value,
     });
+
+  const isStepCompleted = () => {
+    let {
+      name,
+      type,
+      channelTypes,
+      trackingOptions,
+      start,
+      end,
+      budget,
+      impressions,
+    } = campaignData;
+    switch (activeStep) {
+      case 1:
+        // for Step 1
+        return (
+          name &&
+          type &&
+          !isEmptySelection(channelTypes) &&
+          !isEmptySelection(trackingOptions)
+        );
+
+      case 2:
+        // for Step 2, start date shouldn't be greater than end date
+        return start && end && start <= end;
+
+      case 3:
+        // for Step 3, budget & impressions value should be non-zero
+        return budget && impressions;
+    }
+  };
+
+  const isEmptySelection = (obj) => {
+    // either doesn't have any key or has blank array with the key
+    return (
+      Object.keys(obj).length === 0 ||
+      Object.keys(obj).some((key) => obj[key].length === 0)
+    );
+  };
 
   return (
     <div className="CampaignCreator">
@@ -38,7 +80,16 @@ export default function CampaignCreator() {
         />
       </div>
 
-      <Stepper steps={["Select Channel", "Flight", "Budget"]}>
+      <Stepper
+        steps={["Select Channel", "Flight", "Budget"]}
+        activeStep={activeStep}
+        setActiveStep={setActiveStep}
+        isStepCompleted={isStepCompleted()}
+        onComplete={() => {
+          console.log("Request payload");
+          return campaignData;
+        }}
+      >
         <StepContent info="Select the channel of your campaign">
           <Selector
             activeItem={campaignData["type"]}

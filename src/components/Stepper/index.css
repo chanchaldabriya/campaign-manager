@@ -47,7 +47,19 @@
     margin-right: 20px;
 }
 
+.nextBtn,
+.Stepper-btn.complete {
+    background-color: #0084cc;
+    color: white;
+}
+
 .nextBtn::after {
     content: '>';
     margin-left: 20px;
+}
+
+.Stepper-btn[disabled] {
+    pointer-events: none;
+    background-color: #aaa;
+    color: white;
 }

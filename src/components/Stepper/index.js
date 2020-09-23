@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import "./index.css";
 
-export default ({ steps, children }) => {
-  const [activeStep, setActiveStep] = useState(1);
+export default ({ activeStep, setActiveStep, isStepCompleted, steps, children, onComplete }) => {
   const totalSteps = React.Children.count(children),
     isLastStep = activeStep === totalSteps,
     isFirstStep = activeStep === 1;
 
   const nextStep = () =>
-    !isLastStep ? setActiveStep(activeStep + 1) : console.log("HTTP request");
+    !isLastStep ? setActiveStep(activeStep + 1) : console.log(typeof onComplete === "function" ? onComplete() : "HTTP request");
 
   const prevStep = () => setActiveStep(activeStep - 1);
 
@@ -40,8 +39,9 @@ export default ({ steps, children }) => {
         )}
         <button className="Stepper-btn">Cancel</button>
         <button
-          className={`Stepper-btn ${!isLastStep ? "nextBtn" : ""}`}
+          className={`Stepper-btn ${!isLastStep ? "nextBtn" : "complete"}`}
           onClick={nextStep}
+          disabled={!isStepCompleted}
         >
           {isLastStep ? "Create Tracker" : "Next!"}
         </button>
