@@ -4,19 +4,43 @@ import {
   getMillisFromDateString,
 } from "../../common/DateUtils";
 import "./index.css";
+import CurrencyInput from 'react-currency-input';
 
 export default ({
   startLabel = "Start",
   endLabel = "End",
-  type = "text",
+  startType = "text",
+  endType = "text",
   capitalizeLabel = false,
   start,
   setStart,
   end,
   setEnd,
 }) => {
-  // const [start, setStart] = useState("");
-  // const [end, setEnd] = useState("");
+  const CustomInput = (type, value, onChange) => {
+    return type === "currency" ? (
+      <CurrencyInput
+        value={value}
+        onChangeEvent={(event, maskedvalue, floatvalue) =>
+          onChange(maskedvalue)
+        }
+        precision="2"
+        prefix="US$ "
+      />
+    ) : (
+      <input
+        type={type}
+        value={type === "date" ? getDateStringFromMillis(value) : value}
+        onChange={(e) =>
+          onChange(
+            type === "date"
+              ? getMillisFromDateString(e.target.value)
+              : e.target.value
+          )
+        }
+      />
+    );
+  };
 
   return (
     <div className="Range">
@@ -24,22 +48,14 @@ export default ({
         <label className={`Range-label ${capitalizeLabel ? "uppercase" : ""}`}>
           {startLabel}
         </label>
-        <input
-          type={type}
-          value={type === "date" ? getDateStringFromMillis(start) : start}
-          onChange={(e) => setStart(type === "date" ?getMillisFromDateString(e.target.value) : e.target.value)}
-        />
+        {CustomInput(startType, start, setStart)}
       </div>
 
       <div className="Range-item">
         <label className={`Range-label ${capitalizeLabel ? "uppercase" : ""}`}>
           {endLabel}
         </label>
-        <input
-          type={type}
-          value={type === "date" ? getDateStringFromMillis(end) : end}
-          onChange={(e) => setEnd(type === "date" ?getMillisFromDateString(e.target.value) : e.target.value)}
-        />
+        {CustomInput(endType, end, setEnd)}
       </div>
     </div>
   );

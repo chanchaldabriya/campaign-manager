@@ -15,7 +15,7 @@ export default function CampaignCreator() {
     trackingOptions: {},
     start: new Date().getTime(),
     end: new Date().getTime(),
-    budget: 0,
+    budget: "0.00",
     impressions: 0,
   });
 
@@ -141,7 +141,8 @@ export default function CampaignCreator() {
         </StepContent>
         <StepContent info="Select when the campaign start and end">
           <Range
-            type="date"
+            startType="date"
+            endType="date"
             capitalizeLabel
             start={campaignData.start}
             setStart={(startMillis) => editCampaign("start", startMillis)}
@@ -153,7 +154,8 @@ export default function CampaignCreator() {
           <Range
             startLabel="Total Budget"
             endLabel="Total Impressions"
-            type="number"
+            startType="currency"
+            endType="number"
             start={campaignData.budget}
             setStart={(budget) => editCampaign("budget", budget)}
             end={campaignData.impressions}
