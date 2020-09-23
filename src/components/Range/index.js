@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import {
+  getDateStringFromMillis,
+  getMillisFromDateString,
+} from "../../common/DateUtils";
 import "./index.css";
 
 export default ({
@@ -6,9 +10,13 @@ export default ({
   endLabel = "End",
   type = "text",
   capitalizeLabel = false,
+  start,
+  setStart,
+  end,
+  setEnd,
 }) => {
-  // const [start, setStart] = useState(new Date());
-  // const [end, setEnd] = useState(new Date());
+  // const [start, setStart] = useState("");
+  // const [end, setEnd] = useState("");
 
   return (
     <div className="Range">
@@ -18,8 +26,8 @@ export default ({
         </label>
         <input
           type={type}
-          // value={start}
-          // onChange={setStart}
+          value={type === "date" ? getDateStringFromMillis(start) : start}
+          onChange={(e) => setStart(type === "date" ?getMillisFromDateString(e.target.value) : e.target.value)}
         />
       </div>
 
@@ -29,8 +37,8 @@ export default ({
         </label>
         <input
           type={type}
-          // value={end}
-          // onChange={setEnd}
+          value={type === "date" ? getDateStringFromMillis(end) : end}
+          onChange={(e) => setEnd(type === "date" ?getMillisFromDateString(e.target.value) : e.target.value)}
         />
       </div>
     </div>

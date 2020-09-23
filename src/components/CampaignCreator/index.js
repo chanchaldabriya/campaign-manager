@@ -13,6 +13,10 @@ export default function CampaignCreator() {
     type: "",
     channelTypes: {},
     trackingOptions: {},
+    start: new Date().getTime(),
+    end: new Date().getTime(),
+    budget: 0,
+    impressions: 0,
   });
 
   const editCampaign = (prop, value) =>
@@ -67,26 +71,43 @@ export default function CampaignCreator() {
             title="Tracking Options"
             items={{
               "Attribution Type": ["Visits", "Transactions"],
-              "Payment Type": [
-                "UPI",
-                "Credit/Debit Card into the bank",
-                "Internet Banking",
-              ],
             }}
+            // items={{
+            //   "Attribution Type": ["Visits", "Transactions"],
+            //   "Payment Type": [
+            //     "UPI",
+            //     "Credit/Debit Card into the bank",
+            //     "Internet Banking",
+            //   ],
+            // }}
             selected={campaignData["trackingOptions"]}
-            setSelected={(selectedItems, key) => {
-              debugger;
+            setSelected={(selectedItems, key) =>
               editCampaign("trackingOptions", {
                 [key]: selectedItems,
-              });
-            }}
+              })
+            }
           />
         </StepContent>
         <StepContent info="Select when the campaign start and end">
-          <Range type="date" capitalizeLabel />
+          <Range
+            type="date"
+            capitalizeLabel
+            start={campaignData.start}
+            setStart={(startMillis) => editCampaign("start", startMillis)}
+            end={campaignData.end}
+            setEnd={(endMillis) => editCampaign("end", endMillis)}
+          />
         </StepContent>
         <StepContent info="How much is your campaign budget?">
-          <Range startLabel="Total Budget" endLabel="Total Impressions" />
+          <Range
+            startLabel="Total Budget"
+            endLabel="Total Impressions"
+            type="number"
+            start={campaignData.budget}
+            setStart={(budget) => editCampaign("budget", budget)}
+            end={campaignData.impressions}
+            setEnd={(impressions) => editCampaign("impressions", impressions)}
+          />
         </StepContent>
       </Stepper>
     </div>
